@@ -1,0 +1,91 @@
+//
+// This file was generated via github.com/skx/implant/
+//
+// Local edits will be lost.
+//
+package main
+
+import (
+	"bytes"
+	"compress/gzip"
+	"encoding/base64"
+	"fmt"
+	"io/ioutil"
+)
+
+//
+// EmbeddedResource is the structure which is used to record details of
+// each embedded resource in your binary.
+//
+// The resource contains the (original) filename, relative to the input
+// directory `implant` was generated with, along with the original size
+// and the compressed/encoded data.
+//
+type EmbeddedResource struct {
+	Filename string
+	Contents string
+	Length   int
+}
+
+//
+// RESOURCES is a map containing all embedded resources. The map key is the
+// file name.
+//
+// It is exposed to callers via the `getResources()` function.
+//
+var RESOURCES = map[string]EmbeddedResource{
+
+	"data/stdlib.mon": {
+		Filename: "data/stdlib.mon",
+		Contents: "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",
+		Length:   19823,
+	},
+}
+
+//
+// Return the contents of a resource.
+//
+func getResource(path string) ([]byte, error) {
+	if entry, ok := RESOURCES[path]; ok {
+		var raw bytes.Buffer
+		var err error
+
+		// Decode the data.
+		in, err := base64.StdEncoding.DecodeString(entry.Contents)
+		if err != nil {
+			return nil, err
+		}
+
+		// Gunzip the data to the client
+		gr, err := gzip.NewReader(bytes.NewBuffer(in))
+		if err != nil {
+			return nil, err
+		}
+		defer gr.Close()
+		data, err := ioutil.ReadAll(gr)
+		if err != nil {
+			return nil, err
+		}
+		_, err = raw.Write(data)
+		if err != nil {
+			return nil, err
+		}
+
+		// Return it.
+		return raw.Bytes(), nil
+	}
+	return nil, fmt.Errorf("failed to find resource '%s'", path)
+}
+
+//
+// Return the available resources in a slice.
+//
+func getResources() []EmbeddedResource {
+	i := 0
+	ret := make([]EmbeddedResource, len(RESOURCES))
+	for _, v := range RESOURCES {
+		ret[i] = v
+		i++
+	}
+	return ret
+}

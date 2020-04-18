@@ -1,2 +1,2 @@
-#!/home/pi/go/bin/monkey
+#!env monkey
 puts( "Hello, world!\n" );

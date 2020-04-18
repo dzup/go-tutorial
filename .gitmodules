@@ -1,0 +1,6 @@
+[submodule "monkey2"]
+	path = monkey2
+	url = ./src/github.com/skx/monkey
+[submodule "projects/gocorona"]
+	path = projects/gocorona
+	url = https://github.com/ayoisaiah/gocorona.git
