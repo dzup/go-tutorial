@@ -1,0 +1,2 @@
+#!/home/pi/go/bin/monkey
+puts( "Hello, world!\n" );
